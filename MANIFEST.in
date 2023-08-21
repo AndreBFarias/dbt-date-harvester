@@ -1,0 +1,6 @@
+include README.md
+include CHANGELOG.md
+include LICENSE
+include requirements.txt
+include requirements-dev.txt
+recursive-include docs *.md
