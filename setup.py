@@ -27,8 +27,15 @@ setup(
     install_requires=[
         "pyyaml>=6.0",
         "networkx>=2.8",
+        "textual>=0.47.0",
+        "google-cloud-bigquery>=3.11.0",
+        "python-dotenv>=1.0.0",
+        "openpyxl>=3.1.0",
     ],
     extras_require={
+        "gpu": [
+            "cudf-cu12>=24.0",
+        ],
         "dev": [
             "pytest>=7.0",
             "pytest-cov>=4.0",

@@ -177,6 +177,14 @@ def create_parser() -> argparse.ArgumentParser:
 
 def _resolve_project_dir(args: argparse.Namespace) -> Path:
     """Resolve e valida o diretório do projeto."""
+    if args.project_dir == Path("."):
+        try:
+            from harvester.config import Settings
+            settings = Settings.from_env()
+            if settings.dbt_project_dir:
+                args.project_dir = Path(settings.dbt_project_dir)
+        except Exception:
+            pass
     project_dir = args.project_dir.resolve()
     if not project_dir.exists():
         print(f"Erro: diretório não encontrado: {project_dir}", file=sys.stderr)

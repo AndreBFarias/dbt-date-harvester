@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.0.0] - 2026-03-05
+
+### Adicionado
+- Motor de extração de datas do BigQuery (`harvester/`)
+- Interface TUI interativa com wizard de 4 etapas (Textual)
+- Modo batch headless (`--headless --input <csv>`)
+- Detecção automática de colunas de data com classificação e confiança
+- Modo rastreio: rastreamento de origens via SQLs do dbt
+- Preview do CSV com colunas de data e contadores
+- Filtros por status na tela de resultados (Novos, Atualizados, Erros, Rastreio)
+- Diff visual antigo/novo nos resultados
+- Timer de duração na execução
+- Auto-skip da configuração quando `.env` válido
+- Persistência do `SQL_SOURCES_DIR` no `.env`
+- Scripts auxiliares de investigação e validação cruzada
+
+### Alterado
+- README.md reescrito para cobrir harvester + TUI + CLI
+- GUIDE.md atualizado com seção do harvester
+- TUI refatorada de fluxo multi-tela para wizard com TabbedContent
+- Tela de modo eliminada (checkbox integrado na seleção de arquivo)
+- Botões de execução separados (Cancelar/Ver Resultados) em vez de mutação de ID
+- setup.py com dependências do harvester (google-cloud-bigquery, textual, openpyxl)
+
 ## [1.1.0] - 2025-03-05
 
 ### Adicionado
