@@ -32,9 +32,9 @@ dbt-parser graph --project-dir /seu/projeto/dbt
 
 Saída:
 ```
-Nos: 5
+Nós: 5
 Arestas: 4
-Raizes: ['raw.dates', 'raw.events']
+Raízes: ['raw.dates', 'raw.events']
 Folhas: ['fct_event_dates']
 ```
 
@@ -112,7 +112,7 @@ report = impact.analyze_impact("stg_events")
 print(f"Modelos afetados: {report.total_affected}")
 print(f"Risco: {report.risk_level}")
 
-# Validacao
+# Validação
 validator = ModelValidator(extractor, sql_parser)
 results = validator.validate_all()
 for r in results:
@@ -134,7 +134,7 @@ class MeuPlugin(BasePlugin):
         return "0.1.0"
 
     def on_parse_complete(self, graph):
-        print(f"Parsing concluido: {graph.node_count()} nos")
+        print(f"Parsing concluído: {graph.node_count()} nós")
 
 manager = PluginManager()
 manager.register(MeuPlugin)
