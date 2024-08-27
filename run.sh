@@ -28,7 +28,7 @@ if [ ! -d "${VENV_DIR}" ]; then
     "${PYTHON}" -m venv "${VENV_DIR}"
     echo "Instalando dependências..."
     "${VENV_DIR}/bin/pip" install --quiet --upgrade pip
-    "${VENV_DIR}/bin/pip" install --quiet -e "${SCRIPT_DIR}"
+    "${VENV_DIR}/bin/pip" install --quiet -r "${SCRIPT_DIR}/requirements.txt"
     echo "Instalação concluída."
     echo ""
 fi

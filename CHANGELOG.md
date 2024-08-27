@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.1] - 2026-03-11
+
+### Corrigido
+- Scripts de inicialização (run.bat/run.sh) falham com espaços no caminho do projeto
+- Botão Executar sem feedback visível quando nenhum arquivo selecionado
+- Falha silenciosa ao listar arquivos com caracteres especiais no nome (encoding Windows)
+- Comparação de path do .env falha com caracteres especiais (fallback por nome)
+
+### Adicionado
+- Binding F5 para executar via teclado (alternativa ao click do mouse)
+- Auto-seleção de arquivo quando apenas um disponível no diretório
+- Testes de compatibilidade Windows (test_input_compat.py)
+
+### Alterado
+- Instalação via requirements.txt em vez de editable install nos scripts auxiliares
+- README.md atualizado com instruções de instalação consistentes
+
 ## [2.0.0] - 2026-03-05
 
 ### Adicionado

@@ -25,13 +25,20 @@ def _listar_arquivos(diretorio: Path) -> list[tuple[str, str]]:
         return []
     extensoes = {".csv", ".xlsx"}
     resultado: list[tuple[str, str]] = []
-    for f in sorted(diretorio.iterdir()):
-        if f.suffix.lower() in extensoes:
-            resultado.append((f.name, str(f)))
+    try:
+        for f in sorted(diretorio.iterdir()):
+            if f.suffix.lower() in extensoes:
+                resultado.append((f.name, str(f)))
+    except (OSError, UnicodeError) as exc:
+        logger.warning("Erro ao listar arquivos em %s: %s", diretorio, exc)
     return resultado
 
 
 class InputPane(Vertical):
+
+    BINDINGS = [
+        ("f5", "_proximo", "Executar"),
+    ]
 
     class Completed(Message):
         def __init__(
@@ -104,13 +111,24 @@ class InputPane(Vertical):
             self.query_one("#chk-rastreio", Checkbox).value = True
             self.query_one("#grp-sql-dir").display = True
 
+        sel = self.query_one("#sel-arquivo", Select)
+        arquivos = _listar_arquivos(self._input_dir)
+
+        selecionado = False
         if self._settings.input_file:
             input_path = Path(self._settings.input_file)
-            sel = self.query_one("#sel-arquivo", Select)
-            for _, val in _listar_arquivos(self._input_dir):
-                if Path(val).resolve() == input_path.resolve():
+            for _, val in arquivos:
+                try:
+                    match = Path(val).resolve() == input_path.resolve()
+                except OSError:
+                    match = Path(val).name == input_path.name
+                if match:
                     sel.value = val
+                    selecionado = True
                     break
+
+        if not selecionado and len(arquivos) == 1:
+            sel.value = arquivos[0][1]
 
     @on(Checkbox.Changed, "#chk-rastreio")
     def _deep_mode_changed(self, event: Checkbox.Changed) -> None:
@@ -216,8 +234,10 @@ class InputPane(Vertical):
     def _proximo(self) -> None:
         sel = self.query_one("#sel-arquivo", Select)
         if sel.value == Select.BLANK:
-            self.query_one("#lbl-input-stats", Label).update(
-                "[red]Selecione um arquivo[/]"
+            self.app.notify(
+                "Selecione um arquivo antes de executar",
+                severity="warning",
+                timeout=5,
             )
             return
 
