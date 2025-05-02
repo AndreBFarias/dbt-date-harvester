@@ -102,6 +102,7 @@ Tabela com todos os resultados:
 - **Tabela**: nome curto (sem project.dataset)
 - **Tipo**: classificação da coluna de data
 - **Coluna**: coluna de origem (prefixo `[R]` para modo rastreio)
+- **Granularidade**: precisão do dado-fonte (Anual, Mensal, Diária); amarelo quando a data foi inferida
 - **Antigo**: valor anterior no CSV
 - **Novo**: valor extraído do BigQuery
 - **Confiança**: nível de confiança da classificação (verde >= 85%, amarelo >= 70%)

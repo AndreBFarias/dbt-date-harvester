@@ -21,6 +21,8 @@ from harvester.models import (
     DateResult,
     HarvestReport,
     TableInfo,
+    granularidade_from_tipo_bq,
+    data_inferida_from_tipo_bq,
 )
 
 logger = logging.getLogger(__name__)
@@ -146,7 +148,14 @@ class DateHarvester:
                             info.tabela, bq, self._settings.bq_dataset
                         )
                         if val:
-                            dados_tabela: dict[str, str] = {"ref_base": val}
+                            tipo_bq_rastreio = "INT64_ANO" if ("ano" in col_info and val.startswith("31/12/")) else "RASTREIO"
+                            coluna_rastreio = f"[rastreio] {col_info}"
+                            dados_tabela: dict[str, str] = {
+                                "ref_base": val,
+                                "coluna_origem": coluna_rastreio,
+                                "granularidade": granularidade_from_tipo_bq(tipo_bq_rastreio),
+                                "data_inferida": data_inferida_from_tipo_bq(tipo_bq_rastreio),
+                            }
                             resultados_por_tabela[endereco] = dados_tabela
                             report.tabelas_atualizadas += 1
                             report.resultados.append(DateResult(
@@ -154,9 +163,10 @@ class DateHarvester:
                                 tipo_data=DateColumnClass.REFERENCIA,
                                 valor_antigo="",
                                 valor_novo=val,
-                                coluna_origem=f"[rastreio] {col_info}",
+                                coluna_origem=coluna_rastreio,
                                 confianca=conf,
                                 fuzzy_match=usou_fuzzy,
+                                tipo_bq=tipo_bq_rastreio,
                             ))
                             continue
 
@@ -182,6 +192,9 @@ class DateHarvester:
                     max_val = bq.get_max_date(dataset_alvo, info.tabela, col_escolhida.nome, col_escolhida.tipo_bq)
                     if max_val:
                         dados_tabela["ref_base"] = max_val
+                        dados_tabela["coluna_origem"] = col_escolhida.nome
+                        dados_tabela["granularidade"] = granularidade_from_tipo_bq(col_escolhida.tipo_bq)
+                        dados_tabela["data_inferida"] = data_inferida_from_tipo_bq(col_escolhida.tipo_bq)
                         report.resultados.append(DateResult(
                             tabela=endereco,
                             tipo_data=col_escolhida.classificacao,
@@ -190,6 +203,7 @@ class DateHarvester:
                             coluna_origem=col_escolhida.nome,
                             confianca=col_escolhida.confianca,
                             fuzzy_match=usou_fuzzy,
+                            tipo_bq=col_escolhida.tipo_bq,
                         ))
 
                 resultados_por_tabela[endereco] = dados_tabela
@@ -245,6 +259,20 @@ class DateHarvester:
     ) -> None:
         col_base = self._layout.col_data_ref_base
         col_painel = self._layout.col_data_ref_painel
+        col_meta_coluna = self._layout.col_meta_coluna_origem
+        col_meta_gran = self._layout.col_meta_granularidade
+        col_meta_inf = self._layout.col_meta_data_inferida
+
+        meta_headers = {
+            col_meta_coluna: "Coluna de Origem",
+            col_meta_gran: "Granularidade",
+            col_meta_inf: "Data Inferida",
+        }
+        for idx, nome in meta_headers.items():
+            while len(csv_data.header) <= idx:
+                csv_data.header.append("")
+            csv_data.header[idx] = nome
+
         for row in csv_data.rows:
             if row.skip:
                 continue
@@ -252,3 +280,6 @@ class DateHarvester:
             if "ref_base" in dados:
                 atualizar_data_linha(row, col_base, dados["ref_base"])
                 atualizar_data_linha(row, col_painel, dados["ref_base"])
+                atualizar_data_linha(row, col_meta_coluna, dados.get("coluna_origem", ""))
+                atualizar_data_linha(row, col_meta_gran, dados.get("granularidade", ""))
+                atualizar_data_linha(row, col_meta_inf, dados.get("data_inferida", ""))

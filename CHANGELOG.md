@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.1.0] - 2026-03-12
+
+### Adicionado
+- Colunas de metadados no CSV de saída para transparência de premissas:
+  - **Coluna de Origem**: qual coluna do BigQuery foi usada para extrair a data
+  - **Granularidade**: precisão do dado-fonte (Anual, Mensal, Diária)
+  - **Data Inferida**: indica se dia/mês foi calculado (Sim/Não) ou veio direto da base
+- Campo `tipo_bq` no `DateResult` para rastrear o tipo original da coluna
+- Funções utilitárias `granularidade_from_tipo_bq` e `data_inferida_from_tipo_bq`
+- Coluna "Granularidade" na TUI com destaque amarelo para datas inferidas
+
+### Alterado
+- `ColumnLayout` expandido com índices de metadados (colunas 12-14)
+- `_aplicar_resultados` estende automaticamente o header e as linhas do CSV
+- Funciona com entrada CSV e XLSX (metadados adicionados na fase de processamento)
+
 ## [2.0.1] - 2026-03-11
 
 ### Corrigido

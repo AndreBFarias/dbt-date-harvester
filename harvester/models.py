@@ -54,6 +54,36 @@ class DateResult:
     confianca: float = 0.0
     pct_nulls: float = 0.0
     fuzzy_match: bool = False
+    tipo_bq: str = ""
+
+
+_GRANULARIDADE_MAP: dict[str, str] = {
+    "INT64": "Anual",
+    "INT64_ANO": "Anual",
+    "DATE_ANO_PERIODO": "Anual",
+    "DATE_MES_PERIODO": "Mensal",
+    "DATE": "Diária",
+    "TIMESTAMP": "Diária",
+    "DATETIME": "Diária",
+}
+
+_INFERIDA_MAP: dict[str, str] = {
+    "INT64": "Sim",
+    "INT64_ANO": "Sim",
+    "DATE_ANO_PERIODO": "Sim",
+    "DATE_MES_PERIODO": "Sim",
+    "DATE": "Não",
+    "TIMESTAMP": "Não",
+    "DATETIME": "Não",
+}
+
+
+def granularidade_from_tipo_bq(tipo_bq: str) -> str:
+    return _GRANULARIDADE_MAP.get(tipo_bq, "")
+
+
+def data_inferida_from_tipo_bq(tipo_bq: str) -> str:
+    return _INFERIDA_MAP.get(tipo_bq, "")
 
 
 @dataclass

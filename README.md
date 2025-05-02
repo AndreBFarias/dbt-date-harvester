@@ -59,7 +59,7 @@ A interface guia o usuário em 4 etapas:
 1. **Config** - Credencial BigQuery, projeto GCP, dataset (auto-skip se `.env` válido)
 2. **Arquivo** - Seleção do CSV/XLSX, preview com colunas de data, modo rastreio opcional
 3. **Execução** - Progresso em tempo real com timer e log
-4. **Resultados** - Tabela com diff antigo/novo, filtros por status, cores por categoria
+4. **Resultados** - Tabela com diff antigo/novo, granularidade, filtros por status, cores por categoria
 
 ### Modo batch (headless)
 

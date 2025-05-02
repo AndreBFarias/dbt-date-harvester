@@ -8,7 +8,7 @@ from textual.widgets import Button, DataTable, Label
 
 from rich.text import Text
 
-from harvester.models import DateResult, HarvestReport
+from harvester.models import DateResult, HarvestReport, granularidade_from_tipo_bq, data_inferida_from_tipo_bq
 
 
 def _categorizar(r: DateResult) -> str:
@@ -109,7 +109,7 @@ class ResultsPane(Vertical):
         table = self.query_one("#dt-results", DataTable)
         table.clear(columns=True)
         table.add_columns(
-            "Tabela", "Tipo", "Coluna", "Antigo", "Novo", "Confianca", "Status"
+            "Tabela", "Tipo", "Coluna", "Granularidade", "Antigo", "Novo", "Confiança", "Status"
         )
 
         for r in self._report.resultados:
@@ -120,6 +120,11 @@ class ResultsPane(Vertical):
             rastreio_flag = "[R] " if r.coluna_origem.startswith("[rastreio]") else ""
             coluna = r.coluna_origem.replace("[rastreio] ", "") if r.coluna_origem else ""
 
+            granularidade = granularidade_from_tipo_bq(r.tipo_bq)
+            inferida = data_inferida_from_tipo_bq(r.tipo_bq)
+            gran_style = "yellow" if inferida == "Sim" else ""
+            gran_text = Text(granularidade, style=gran_style) if granularidade else Text("-", style="dim")
+
             antigo_text = Text(r.valor_antigo, style="dim") if r.valor_antigo else Text("-", style="dim")
             novo_text = Text(r.valor_novo, style="green") if r.valor_novo else Text("-", style="dim")
 
@@ -127,6 +132,7 @@ class ResultsPane(Vertical):
                 Text(_nome_curto(r.tabela)),
                 r.tipo_data.value if r.tipo_data else "",
                 f"{rastreio_flag}{coluna}",
+                gran_text,
                 antigo_text,
                 novo_text,
                 _confianca_styled(r.confianca),
