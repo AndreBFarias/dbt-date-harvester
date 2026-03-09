@@ -2,25 +2,31 @@
 
 ## Introdução
 
-O dbt-date-harvester é uma ferramenta de análise estática para projetos dbt. Ele faz parsing dos arquivos YAML e SQL do seu projeto, constrói grafos de dependência e oferece recursos de validação, linhagem e exportação -- tudo sem precisar de conexão com banco de dados.
+O dbt-date-harvester é uma ferramenta com duas funcionalidades principais:
 
-Principais funcionalidades:
+1. **Harvester** - Extração automática de datas de referência do BigQuery para o CSV do Painel Estratégico
+2. **dbt-parser** - Análise estática de projetos dbt com grafos de dependência, validação e exportação
 
-- Parsing de YAML (schema.yml, sources.yml, dbt_project.yml) e SQL (refs, sources, CTEs, configs)
-- Construção de grafos de dependência com networkx
-- Rastreamento de linhagem de dados (upstream e downstream)
-- Análise de impacto de mudanças
-- Validação de boas práticas e convenções de nomenclatura
-- Exportação para JSON, GraphViz DOT e Mermaid
-- Detecção de modelos não utilizados e duplicados
-- Métricas de complexidade SQL
-- Sistema de plugins extensível
+### Harvester
+
+O harvester conecta ao BigQuery, identifica colunas de data nas tabelas listadas no CSV, extrai a data mais recente e preenche automaticamente as colunas de referência. Suporta:
+
+- Detecção automática de colunas de data com classificação (referência, atualização, dados)
+- Nível de confiança na classificação
+- Modo rastreio: rastreamento de origens via SQLs do dbt quando a tabela final não tem coluna de data
+- Fuzzy match de nomes de tabela (ex: `tabela` -> `painel_tabela`)
+
+### dbt-parser
+
+Parser de análise estática que faz parsing dos arquivos YAML e SQL do projeto dbt, constrói grafos de dependência e oferece recursos de validação, linhagem e exportação sem conexão com banco de dados.
 
 ## Pré-requisitos
 
 - Python 3.8 ou superior
 - pip (gerenciador de pacotes Python)
-- Um projeto dbt com arquivos SQL e YAML
+- Credencial de serviço GCP (JSON) com acesso ao BigQuery (para o harvester)
+- Arquivo CSV/XLSX do Painel Estratégico (para o harvester)
+- Um projeto dbt com arquivos SQL e YAML (para o dbt-parser)
 
 ## Instalação
 
@@ -46,7 +52,73 @@ Isso instala dependências de teste (pytest, pytest-cov), linting (flake8, black
 dbt-parser --version
 ```
 
-## Comandos da CLI
+---
+
+## Harvester - TUI interativa
+
+### Iniciar
+
+```bash
+python main.py
+```
+
+A TUI apresenta um wizard com 4 abas:
+
+### 1. Config
+
+Configuração da conexão com BigQuery:
+- **Credencial**: selecione o arquivo JSON na pasta `credentials/`
+- **Projeto GCP**: identificador do projeto (ex: `br-mec-segape-dev`)
+- **Dataset**: dataset do BigQuery (ex: `projeto_painel_ministro`)
+- **Localização**: região do BigQuery (ex: `southamerica-east1`)
+
+Se o `.env` já existe e está válido, esta aba é pulada automaticamente.
+
+Botões:
+- **Testar Conexão**: valida as credenciais contra o BigQuery
+- **Salvar .env**: persiste a configuração em arquivo
+- **Confirmar**: avança para a próxima aba
+
+### 2. Arquivo
+
+Seleção do arquivo de entrada e modo de execução:
+- Selecione um CSV ou XLSX na pasta `data_input/`
+- Para XLSX, selecione a aba desejada
+- O preview mostra as colunas de data com status (Vazio/Preenchido)
+- Marque "Modo Rastreio" para rastrear origens via SQLs do dbt (requer diretorio dos SQLs)
+
+### 3. Execução
+
+Acompanhe o progresso em tempo real:
+- Barra de progresso com contagem de tabelas processadas
+- Log detalhado de cada operação
+- Timer de duração
+- Botão "Cancelar" interrompe a execução
+- Ao concluir, botão "Ver Resultados" aparece com notificação
+
+### 4. Resultados
+
+Tabela com todos os resultados:
+- **Tabela**: nome curto (sem project.dataset)
+- **Tipo**: classificação da coluna de data
+- **Coluna**: coluna de origem (prefixo `[R]` para modo rastreio)
+- **Antigo**: valor anterior no CSV
+- **Novo**: valor extraído do BigQuery
+- **Confiança**: nível de confiança da classificação (verde >= 85%, amarelo >= 70%)
+- **Status**: Novo (verde), Atualizado (amarelo), Erro (vermelho), Rastreio (ciano), Sem data
+
+Filtros: Todos, Novos, Atualizados, Erros, Rastreio, Sem data
+
+### Modo batch (headless)
+
+```bash
+python main.py --headless --input "data_input/arquivo.csv"
+python main.py --headless --input "data_input/arquivo.csv" --output "data_output"
+```
+
+---
+
+## dbt-parser - Comandos da CLI
 
 Todos os comandos aceitam as seguintes opções globais:
 
@@ -362,14 +434,3 @@ Verifique se o `--project-dir` aponta para a raiz do projeto dbt (onde está o `
 
 - Use `--severity info` para ver todos os avisos, incluindo os informativos.
 - Convenções de nomenclatura esperadas: `stg_` (staging), `fct_` (fatos), `dim_` (dimensões).
-
----
-
-## Contribuição
-
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/minha-feature`)
-3. Instale dependências de desenvolvimento: `pip install -e ".[dev]"`
-4. Execute os testes: `pytest`
-5. Garanta que o linting passa: `flake8 dbt_parser/` e `mypy dbt_parser/`
-6. Abra um Pull Request

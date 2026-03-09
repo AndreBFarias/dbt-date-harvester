@@ -30,3 +30,6 @@ venv_*/
 Task_Final/
 IMPORTANT.md
 .hypothesis/
+data_output/
+credentials/
+data_input/
