@@ -18,7 +18,7 @@ long_description = (HERE / "README.md").read_text(encoding="utf-8")
 setup(
     name="dbt-date-harvester",
     version=read_version(),
-    description="Ferramenta de parsing e analise estatica para projetos dbt",
+    description="Ferramenta de parsing e análise estática para projetos dbt",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="dbt-date-harvester contributors",

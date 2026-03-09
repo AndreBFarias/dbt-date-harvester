@@ -85,7 +85,7 @@ Seleção do arquivo de entrada e modo de execução:
 - Selecione um CSV ou XLSX na pasta `data_input/`
 - Para XLSX, selecione a aba desejada
 - O preview mostra as colunas de data com status (Vazio/Preenchido)
-- Marque "Modo Rastreio" para rastrear origens via SQLs do dbt (requer diretorio dos SQLs)
+- Marque "Modo Rastreio" para rastrear origens via SQLs do dbt (requer diretório dos SQLs)
 
 ### 3. Execução
 
@@ -159,27 +159,27 @@ Para cada modelo SQL, mostra as referências (`ref()`) e fontes (`source()`) enc
 Analisa o grafo de dependências do projeto.
 
 ```bash
-# Visao geral
+# Visão geral
 dbt-parser graph --project-dir /caminho/projeto/dbt
 ```
 
 Saída:
 ```
-Nos: 5
+Nós: 5
 Arestas: 4
-Raizes: ['raw.dates', 'raw.events']
+Raízes: ['raw.dates', 'raw.events']
 Folhas: ['fct_event_dates']
 ```
 
 ```bash
-# Modelo especifico
+# Modelo específico
 dbt-parser graph --project-dir /caminho/projeto/dbt --model fct_event_dates
 ```
 
 Saída:
 ```
 Modelo: fct_event_dates
-  Dependencias diretas: ['stg_events', 'stg_dates']
+  Dependências diretas: ['stg_events', 'stg_dates']
   Dependentes diretos: []
 ```
 
@@ -197,9 +197,9 @@ Níveis de severidade: `error`, `warning`, `info`. O filtro `--severity` define 
 
 Saída:
 ```
-[WARNING] raw_events: Modelo sem documentacao no schema.yml
+[WARNING] raw_events: Modelo sem documentação no schema.yml
 [INFO] stg_events: Modelo sem testes definidos
-[ERROR] fct_dates: Nome nao segue convencao (esperado: fct_ ou dim_)
+[ERROR] fct_dates: Nome não segue convenção (esperado: fct_ ou dim_)
 ```
 
 O comando retorna código 1 se houver erros, 0 caso contrário.
@@ -301,11 +301,11 @@ graph = GraphResolver()
 analyzer = DependencyAnalyzer(graph, sql_parser)
 analyzer.build_dependency_graph()
 
-print(f"Nos: {graph.node_count()}")
-print(f"Raizes: {graph.get_root_nodes()}")
+print(f"Nós: {graph.node_count()}")
+print(f"Raízes: {graph.get_root_nodes()}")
 
 report = analyzer.analyze_model("fct_event_dates")
-print(f"Dependencias: {report.direct_dependencies}")
+print(f"Dependências: {report.direct_dependencies}")
 ```
 
 ### Análise de impacto
@@ -370,7 +370,7 @@ class MeuPlugin(BasePlugin):
         return "0.1.0"
 
     def on_parse_complete(self, graph):
-        print(f"Parsing concluido: {graph.node_count()} nos")
+        print(f"Parsing concluído: {graph.node_count()} nós")
 
     def register_validators(self):
         return [minha_funcao_validadora]

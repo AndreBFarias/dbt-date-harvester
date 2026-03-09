@@ -34,10 +34,11 @@ graph = GraphResolver()
 analyzer = DependencyAnalyzer(graph, sql_parser)
 analyzer.build_dependency_graph()
 
-print(f"Total nos: {graph.node_count()}")
+print(f"Total nós: {graph.node_count()}")
 print(f"Total arestas: {graph.edge_count()}")
-print(f"Ordem execucao: {analyzer.get_execution_order()}")
+print(f"Ordem execução: {analyzer.get_execution_order()}")
 print(f"Modelos isolados: {analyzer.get_isolated_models()}")
+
 ```
 
 ## Exemplo 3: Exportação
@@ -74,16 +75,16 @@ for r in results:
 ## Exemplo 5: CLI
 
 ```bash
-# Parsing basico
+# Parsing básico
 dbt-parser parse --project-dir /caminho/projeto
 
-# Analise de grafo
+# Análise de grafo
 dbt-parser graph --project-dir /caminho/projeto
 
-# Analise de modelo especifico
+# Análise de modelo específico
 dbt-parser graph --project-dir /caminho/projeto --model fct_event_dates
 
-# Validacao
+# Validação
 dbt-parser validate --project-dir /caminho/projeto --severity warning
 
 # Linhagem

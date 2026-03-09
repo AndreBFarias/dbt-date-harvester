@@ -29,6 +29,8 @@ htmlcov/
 venv_*/
 Task_Final/
 IMPORTANT.md
+*.claude.md
+*_AI_*.md
 .hypothesis/
 data_output/
 credentials/
