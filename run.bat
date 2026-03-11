@@ -2,7 +2,8 @@
 setlocal EnableDelayedExpansion
 
 set "SCRIPT_DIR=%~dp0"
-set "VENV_DIR=%SCRIPT_DIR%venv"
+if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
+set "VENV_DIR=%SCRIPT_DIR%\venv"
 
 where python >nul 2>nul
 if %ERRORLEVEL% neq 0 (
@@ -21,9 +22,9 @@ if not exist "%VENV_DIR%\Scripts\python.exe" (
     python -m venv "%VENV_DIR%"
     echo Instalando dependencias...
     "%VENV_DIR%\Scripts\pip" install --quiet --upgrade pip
-    "%VENV_DIR%\Scripts\pip" install --quiet -e "%SCRIPT_DIR%"
+    "%VENV_DIR%\Scripts\pip" install --quiet -r "%SCRIPT_DIR%\requirements.txt"
     echo Instalacao concluida.
     echo.
 )
 
-"%VENV_DIR%\Scripts\python" "%SCRIPT_DIR%main.py" %*
+"%VENV_DIR%\Scripts\python" "%SCRIPT_DIR%\main.py" %*
