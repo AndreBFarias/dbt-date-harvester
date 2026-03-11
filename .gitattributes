@@ -1,0 +1,26 @@
+# Line endings
+* text=auto
+
+# Scripts Windows: sempre CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Scripts Unix: sempre LF
+*.sh text eol=lf
+
+# Python: sempre LF
+*.py text eol=lf
+
+# Config: sempre LF
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.env text eol=lf
+
+# Binarios
+*.xlsx binary
+*.xls binary
+*.csv text eol=lf
