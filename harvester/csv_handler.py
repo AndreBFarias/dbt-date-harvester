@@ -19,6 +19,9 @@ class ColumnLayout:
     col_data_ref_painel: int = 11
     csv_delimiter: str = ";"
     csv_encoding: str = "utf-8-sig"
+    col_meta_coluna_origem: int = 12
+    col_meta_granularidade: int = 13
+    col_meta_data_inferida: int = 14
 
 
 @dataclass
