@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-CSV_PATH = Path("data_input/Mapa_Projeto_Painel_Estratégico( Dados).csv")
+CSV_PATH = Path(os.environ.get("INPUT_FILE", "data_input/mapa_projeto.csv"))
 OUTPUT_PATH = Path("data_output/cross_validation.csv")
 
 

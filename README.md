@@ -1,6 +1,6 @@
 # dbt-date-harvester
 
-Ferramenta para extração automática de datas de referência do BigQuery e preenchimento do CSV do Painel Estratégico, com interface TUI interativa e modo batch.
+Ferramenta para extração automática de datas de referência do BigQuery e preenchimento do CSV do painel analítico, com interface TUI interativa e modo batch.
 
 Inclui também um parser de análise estática para projetos [dbt](https://www.getdbt.com/), com grafos de dependência, validação e exportação.
 
@@ -8,7 +8,7 @@ Inclui também um parser de análise estática para projetos [dbt](https://www.g
 
 - Python 3.8+
 - Credencial de serviço GCP (JSON) com acesso ao BigQuery
-- Arquivo CSV/XLSX do Painel Estratégico
+- Arquivo CSV/XLSX do painel analítico
 
 ## Instalação
 

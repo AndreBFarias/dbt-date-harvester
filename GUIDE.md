@@ -4,7 +4,7 @@
 
 O dbt-date-harvester é uma ferramenta com duas funcionalidades principais:
 
-1. **Harvester** - Extração automática de datas de referência do BigQuery para o CSV do Painel Estratégico
+1. **Harvester** - Extração automática de datas de referência do BigQuery para o CSV do painel analítico
 2. **dbt-parser** - Análise estática de projetos dbt com grafos de dependência, validação e exportação
 
 ### Harvester
@@ -25,7 +25,7 @@ Parser de análise estática que faz parsing dos arquivos YAML e SQL do projeto 
 - Python 3.8 ou superior
 - pip (gerenciador de pacotes Python)
 - Credencial de serviço GCP (JSON) com acesso ao BigQuery (para o harvester)
-- Arquivo CSV/XLSX do Painel Estratégico (para o harvester)
+- Arquivo CSV/XLSX do painel analítico (para o harvester)
 - Um projeto dbt com arquivos SQL e YAML (para o dbt-parser)
 
 ## Instalação
@@ -68,8 +68,8 @@ A TUI apresenta um wizard com 4 abas:
 
 Configuração da conexão com BigQuery:
 - **Credencial**: selecione o arquivo JSON na pasta `credentials/`
-- **Projeto GCP**: identificador do projeto (ex: `br-mec-segape-dev`)
-- **Dataset**: dataset do BigQuery (ex: `projeto_painel_ministro`)
+- **Projeto GCP**: identificador do projeto (ex: `seu-projeto-gcp`)
+- **Dataset**: dataset do BigQuery (ex: `seu-dataset`)
 - **Localização**: região do BigQuery (ex: `southamerica-east1`)
 
 Se o `.env` já existe e está válido, esta aba é pulada automaticamente.
