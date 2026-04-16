@@ -1,4 +1,4 @@
-# Contribuindo com dbt-date-harvester
+# Contribuindo com Harvestr
 
 ## Configuração do ambiente
 

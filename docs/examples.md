@@ -1,4 +1,4 @@
-# Exemplos de Uso - dbt-date-harvester
+# Exemplos de Uso - Harvestr
 
 ## Exemplo 1: Parsing Básico
 

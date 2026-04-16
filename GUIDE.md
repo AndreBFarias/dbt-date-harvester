@@ -1,8 +1,8 @@
-# Guia de Usuário - dbt-date-harvester
+# Guia de Usuário - Harvestr
 
 ## Introdução
 
-O dbt-date-harvester é uma ferramenta com duas funcionalidades principais:
+O Harvestr é uma ferramenta com duas funcionalidades principais:
 
 1. **Harvester** - Extração automática de datas de referência do BigQuery para o CSV do painel analítico
 2. **dbt-parser** - Análise estática de projetos dbt com grafos de dependência, validação e exportação
@@ -34,7 +34,7 @@ Parser de análise estática que faz parsing dos arquivos YAML e SQL do projeto 
 
 ```bash
 git clone <url-do-repositorio>
-cd dbt-date-harvester
+cd Harvestr
 pip install -e .
 ```
 
@@ -271,7 +271,7 @@ Isso gera um subgrafo contendo o modelo, seus ancestrais (upstream) e seus desce
 
 ## Uso como biblioteca Python
 
-O dbt-date-harvester pode ser usado programaticamente:
+O Harvestr pode ser usado programaticamente:
 
 ### Parsing básico
 

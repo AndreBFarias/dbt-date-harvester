@@ -1,4 +1,4 @@
-# API Reference - dbt-date-harvester
+# API Reference - Harvestr
 
 ## Parsers
 

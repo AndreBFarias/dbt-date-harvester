@@ -1,6 +1,6 @@
-# dbt-date-harvester
+# Harvestr
 
-[![CI](https://github.com/AndreBFarias/dbt-date-harvester/actions/workflows/ci.yml/badge.svg)](https://github.com/AndreBFarias/dbt-date-harvester/actions/workflows/ci.yml)
+[![CI](https://github.com/AndreBFarias/Harvestr/actions/workflows/ci.yml/badge.svg)](https://github.com/AndreBFarias/Harvestr/actions/workflows/ci.yml)
 
 Ferramenta para extração automática de datas de referência do BigQuery e preenchimento do CSV do painel analítico, com interface TUI interativa e modo batch.
 

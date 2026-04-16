@@ -1,8 +1,8 @@
-# Arquitetura - dbt-date-harvester
+# Arquitetura - Harvestr
 
 ## Visão Geral
 
-O dbt-date-harvester é uma ferramenta de análise estática para projetos dbt.
+O Harvestr é uma ferramenta de análise estática para projetos dbt.
 Faz parsing de arquivos YAML e SQL, constrói grafos de dependência e fornece
 ferramentas de validação e análise.
 

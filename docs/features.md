@@ -1,4 +1,4 @@
-# Guia de Features - dbt-date-harvester
+# Guia de Features - Harvestr
 
 ## Parsing
 

@@ -1,10 +1,10 @@
-# Tutorial - dbt-date-harvester
+# Tutorial - Harvestr
 
 ## Passo 1: Instalação
 
 ```bash
 git clone <repo-url>
-cd dbt-date-harvester
+cd Harvestr
 pip install -e .
 ```
 
