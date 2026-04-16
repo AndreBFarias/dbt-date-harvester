@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.1.1] - 2026-04-15
+
+### Adicionado
+- Código de Conduta (Contributor Covenant v2.1)
+- Política de Segurança (SECURITY.md)
+- Templates de issue e PR para GitHub
+- .mailmap para unificação de identidade git
+- Badge CI no README
+
+### Corrigido
+- version.py sincronizado com CHANGELOG (1.1.0 -> 2.1.1)
+- URLs do projeto adicionadas ao setup.py
+
+---
+
 ## [2.1.0] - 2026-03-12
 
 ### Adicionado

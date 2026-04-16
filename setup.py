@@ -21,8 +21,13 @@ setup(
     description="Ferramenta de parsing e análise estática para projetos dbt",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="dbt-date-harvester contributors",
+    author="AndreBFarias",
     license="GPL-3.0",
+    url="https://github.com/AndreBFarias/dbt-date-harvester",
+    project_urls={
+        "Bug Tracker": "https://github.com/AndreBFarias/dbt-date-harvester/issues",
+        "Changelog": "https://github.com/AndreBFarias/dbt-date-harvester/blob/main/CHANGELOG.md",
+    },
     packages=find_packages(),
     install_requires=[
         "pyyaml>=6.0",

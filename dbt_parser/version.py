@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import re
 
-MAJOR = 1
+MAJOR = 2
 MINOR = 1
-PATCH = 0
+PATCH = 1
 
 VERSION = f"{MAJOR}.{MINOR}.{PATCH}"
 VERSION_INFO: tuple[int, int, int] = (MAJOR, MINOR, PATCH)

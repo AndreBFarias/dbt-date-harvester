@@ -1,5 +1,7 @@
 # dbt-date-harvester
 
+[![CI](https://github.com/AndreBFarias/dbt-date-harvester/actions/workflows/ci.yml/badge.svg)](https://github.com/AndreBFarias/dbt-date-harvester/actions/workflows/ci.yml)
+
 Ferramenta para extração automática de datas de referência do BigQuery e preenchimento do CSV do painel analítico, com interface TUI interativa e modo batch.
 
 Inclui também um parser de análise estática para projetos [dbt](https://www.getdbt.com/), com grafos de dependência, validação e exportação.
